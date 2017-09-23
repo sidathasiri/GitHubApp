@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {AppRegistry,StyleSheet,Text,View,Image,TextInput} from 'react-native';
+import {AppRegistry,StyleSheet,Text,View,Image,TextInput,TouchableHighlight} from 'react-native';
 
 export default class Login extends Component {
   render() {
@@ -22,7 +22,12 @@ export default class Login extends Component {
         <TextInput 
         style={styles.inputBox}
         placeholder='Password'
+        secureTextEntry={true}
         />
+
+        <TouchableHighlight style={styles.btn}>
+            <Text style={styles.btnText}>Login</Text>
+        </TouchableHighlight>
       </View>
     );
   }
@@ -30,10 +35,11 @@ export default class Login extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#a5deff',
+        backgroundColor: '#d5e5f2',
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
+        justifyContent: 'center',
+        padding: 15
     },
 
     logo: {
@@ -46,9 +52,26 @@ const styles = StyleSheet.create({
     },
 
     inputBox: {
-        width: 180,
-        height: 20,
-        
+        width: 200,
+        height: 40,
+        borderWidth: 1,
+        borderColor: '#48bbec',
+        marginTop: 13,
+        padding: 8,        
+    },
+
+    btn: {
+        backgroundColor: '#268ce0',
+        marginTop: 10,
+        padding: 10,
+        width: 200,
+        justifyContent: 'center'
+    },
+
+    btnText: {
+        color: '#deedf9',
+        alignSelf: 'center'
+
     }
 });
 
