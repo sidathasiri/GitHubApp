@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+var buffer = require('buffer');
 import {AppRegistry,
     StyleSheet,
     Text,
@@ -21,6 +22,16 @@ export default class Login extends Component {
     }
 
     render() {
+
+        var errCtrl = <View />;
+        if(this.state.badCredintials){
+            errCtrl = <Text style={styles.error}>Wrong username or password!</Text>
+        }
+
+        if(this.state.unknownError){
+            errCtrl = <Text style={styles.error}>Unexpected error occured!</Text>
+        }
+
         return (
         <View style = {styles.container}>
             <Image
@@ -49,6 +60,8 @@ export default class Login extends Component {
                 <Text style={styles.btnText}>Login</Text>
             </TouchableHighlight>
 
+            {errCtrl}
+
             <ActivityIndicator 
             style={{marginTop: 10, opacity: this.state.opacity}}
             animating = {true}
@@ -59,13 +72,17 @@ export default class Login extends Component {
   }
 
   loginPressed(){
+
+      var loginService = require('../../Services/AuthService');
+    
       this.setState({opacity: 1}, ()=>{
-        fetch('https://api.github.com/search/repositories?q=react')
-        .then((res) => {return res.json()})
-        .then(result => {
-            console.log(result);
-            this.setState({opacity: 0});
-          })
+        loginService.login({
+            username: this.state.username,
+            password: this.state.password
+        }, (result)=>{
+            this.setState(result);
+            this.setState({opacity: 0})
+        })
       });
       
       
@@ -107,6 +124,9 @@ const styles = StyleSheet.create({
     btnText: {
         color: '#deedf9',
         alignSelf: 'center'
+    },
+    error: {
+        color: 'red'
     }
 });
 
