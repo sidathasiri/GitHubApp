@@ -9,12 +9,34 @@ import {
 import Login from './Components/Login/login';
 
 export default class githubapp extends Component {
+
+  state = {
+    isLoggedIn: false
+  }
+
   render() {
-    return (
-      <View style={styles.container}>
-         <Login />
-      </View>
-    );
+    if(this.state.isLoggedIn){
+      return (
+        <View style={styles.container}>
+           <Text style={styles.welcome}>Logged In</Text>
+        </View>
+      );
+    } else{
+      return (
+        <View style={styles.container}>
+           <Login onLogin={this.onLogin.bind(this)} />
+        </View>
+      );
+    }
+  }
+
+  getInitialState(){
+    return {isLoggedIn: false}
+  }
+
+  onLogin(){
+    console.log("You can login!!!!");
+    this.setState({isLoggedIn: true});
   }
 }
 

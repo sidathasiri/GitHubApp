@@ -81,12 +81,13 @@ export default class Login extends Component {
             password: this.state.password
         }, (result)=>{
             this.setState(result);
-            this.setState({opacity: 0})
+            this.setState({opacity: 0});
+
+            if(!result.badCredintials && !result.unknownError && this.props.onLogin){
+                this.props.onLogin();
+            }
         })
       });
-      
-      
-      
   }
 
 }
