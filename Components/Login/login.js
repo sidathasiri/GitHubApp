@@ -16,7 +16,7 @@ export default class Login extends Component {
     constructor(props){
         super(props);   
         this.state = {
-            showProgress: false
+            opacity: 0
         }
     }
 
@@ -50,8 +50,8 @@ export default class Login extends Component {
             </TouchableHighlight>
 
             <ActivityIndicator 
-            style={styles.loader}
-            animating = {this.state.showProgress}
+            style={{marginTop: 10, opacity: this.state.opacity}}
+            animating = {true}
             size = "large"
             />
         </View>
@@ -59,8 +59,17 @@ export default class Login extends Component {
   }
 
   loginPressed(){
-      this.setState({showProgress: true});
-      console.log(this.state.showProgress);
+      this.setState({opacity: 1}, ()=>{
+        fetch('https://api.github.com/search/repositories?q=react')
+        .then((res) => {return res.json()})
+        .then(result => {
+            console.log(result);
+            this.setState({opacity: 0});
+          })
+      });
+      
+      
+      
   }
 
 }
@@ -98,9 +107,6 @@ const styles = StyleSheet.create({
     btnText: {
         color: '#deedf9',
         alignSelf: 'center'
-    },
-    loader: {
-        marginTop: 20
     }
 });
 
