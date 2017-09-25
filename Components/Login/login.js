@@ -82,8 +82,8 @@ export default class Login extends Component {
         }, (result)=>{
             this.setState(result);
             this.setState({opacity: 0});
-
-            if(!result.badCredintials && !result.unknownError && this.props.onLogin){
+            console.log("before run:"+result.badCredintials+"   "+result.unknownError);
+            if((!result.badCredintials && !result.unknownError) && this.props.onLogin){
                 this.props.onLogin();
             }
         })

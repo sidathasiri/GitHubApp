@@ -1,4 +1,5 @@
 var buffer = require('buffer');
+var AsyncStorage = require('react-native').AsyncStorage;
 
 class AuthService{
     login(credintials, callback){
@@ -19,13 +20,21 @@ class AuthService{
         })
         .then((res) => {return res.json()})
         .then(result => {
-            console.log(result);
-            return callback({
-                unknownError: null,
-                badCredintials: null
+            console.log("result"+result);
+            AsyncStorage.multiSet([
+                ['auth', encordedData],
+                ['user', JSON.stringify(result)]
+            ], (err) => {
+                if(err)
+                    throw err;
+                return callback({
+                    unknownError: null,
+                    badCredintials: null
+                })
             })
           })
         .catch((err)=>{
+            console.log("error"+err);
             return callback(err);
         })
     }
