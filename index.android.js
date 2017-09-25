@@ -3,18 +3,45 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  ActivityIndicator
 } from 'react-native';
 
 import Login from './Components/Login/login';
+import AuthService from './Services/AuthService';
 
 export default class githubapp extends Component {
 
   state = {
-    isLoggedIn: false
+    isLoggedIn: false,
+    checkingAuth: true
+  }
+
+  componentDidMount(){
+    AuthService.getAuthInfo((err, result)=>{
+      console.log("inside mount:"+result);
+      this.setState({
+        checkingAuth: false,
+        isLoggedIn: result != null
+      });
+
+    });
   }
 
   render() {
+
+    if(this.state.checkingAuth){
+      return(
+        <View style={styles.container}>
+          <ActivityIndicator 
+            animating = {true}
+            size = "large"
+
+          />
+        </View>
+      );
+    }
+
     if(this.state.isLoggedIn){
       return (
         <View style={styles.container}>

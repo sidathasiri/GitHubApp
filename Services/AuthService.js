@@ -1,7 +1,34 @@
 var buffer = require('buffer');
 var AsyncStorage = require('react-native').AsyncStorage;
+var _ = require('lodash');
+
+const authKey = "auth";
+const userKey = "user";
 
 class AuthService{
+
+    getAuthInfo(callback){
+        AsyncStorage.multiGet([authKey, userKey], (err, result)=>{
+            if(err)
+                return callback(err);
+            
+            if(!result)
+                return callback();
+            
+            if(!result[0][1])
+                return callback();
+            console.log("result:"+result);
+            var authInfo = {
+                header: {
+                    Authorization: 'Basic '+result[0][1]
+                },
+                user: JSON.parse(result[1][1])
+            }
+
+            return callback(null, authInfo);
+        })
+    }
+
     login(credintials, callback){
         var encorder  = new buffer.Buffer(credintials.username+":"+credintials.password);
         var encordedData = encorder.toString('base64');
@@ -22,11 +49,12 @@ class AuthService{
         .then(result => {
             console.log("result"+result);
             AsyncStorage.multiSet([
-                ['auth', encordedData],
-                ['user', JSON.stringify(result)]
+                [authKey, encordedData],
+                [userKey, JSON.stringify(result)]
             ], (err) => {
                 if(err)
                     throw err;
+                console.log("async data saved");
                 return callback({
                     unknownError: null,
                     badCredintials: null
