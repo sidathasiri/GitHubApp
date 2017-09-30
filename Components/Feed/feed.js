@@ -4,7 +4,8 @@ import {
     StyleSheet,
     View,
     Text,
-    ListView
+    ListView,
+    ActivityIndicator
 } 
 from 'react-native';
 
@@ -16,15 +17,13 @@ export default class Feed extends Component {
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
           dataSource: ds.cloneWithRows([{author: {name:'', date:''}, message: ''}]),
-          commits: []
+          opacity: 1
         };
     }
 
     renderRow(rowData){
         return(<Text style={styles.card}>
-                {rowData.author.name}
                 {rowData.message}
-                {rowData.author.date}
             </Text>)
     }
 
@@ -51,7 +50,8 @@ export default class Feed extends Component {
                 }
                 console.log(arr.length);
                 this.setState({
-                    dataSource: this.state.dataSource.cloneWithRows(arr)
+                    dataSource: this.state.dataSource.cloneWithRows(arr),
+                    opacity: 0
                 });
 
                 console.log(this.state.dataSource);
@@ -61,13 +61,23 @@ export default class Feed extends Component {
     }
 
     render() {
-        return (
-            <View style={styles.container}>
-                <ListView
-                dataSource={this.state.dataSource}
-                renderRow={this.renderRow.bind(this)}
-              />
-            </View>
+        if(this.state.opacity==1){
+            return (
+                <ActivityIndicator 
+                style={{flex: 1, opacity: this.state.opacity, justifyContent: 'center', alignSelf: 'center'}}
+                animating = {true}
+                size = "large"
+            />
+            )
+        }
+        else
+            return (
+                <View style={styles.container}>
+                    <ListView
+                    dataSource={this.state.dataSource}
+                    renderRow={this.renderRow.bind(this)}
+                    />
+                </View>
         );
   }
 
