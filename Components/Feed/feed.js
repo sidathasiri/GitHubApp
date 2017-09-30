@@ -15,14 +15,16 @@ export default class Feed extends Component {
 
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
-          dataSource: ds.cloneWithRows(['A']),
+          dataSource: ds.cloneWithRows([{author: {name:'', date:''}, message: ''}]),
           commits: []
         };
     }
 
     renderRow(rowData){
         return(<Text style={styles.card}>
-                {rowData}
+                {rowData.author.name}
+                {rowData.message}
+                {rowData.author.date}
             </Text>)
     }
 
@@ -45,7 +47,7 @@ export default class Feed extends Component {
                 let arr=[];
                 for( i=0; i< result.length; i++){
                     console.log(result[i].commit.message);
-                    arr.push(result[i].commit.message);
+                    arr.push(result[i].commit);
                 }
                 console.log(arr.length);
                 this.setState({
