@@ -4,10 +4,12 @@ import {
     StyleSheet,
     View,
     Text,
-    Image
+    Image,
+    Icon
 } 
 from 'react-native';
 import TabNavigator from 'react-native-tab-navigator';
+import Feed from '../Feed/feed';
 
 export default class AppContainer extends Component {
 
@@ -22,23 +24,25 @@ export default class AppContainer extends Component {
         return (
             <TabNavigator>
                 <TabNavigator.Item
+                    titleStyle={{fontWeight: 'bold', fontSize: 10}}
+                    selectedTitleStyle={{marginTop: -1, marginBottom: 6}}
                     selected={this.state.selectedTab == 'feed'}
                     title="Feed"
-                    onPress={()=>this.setState({selectedTab:'feed'})}
                     renderIcon={() => <Image source={require('../../resources/images/feed.png')} />}
                     renderSelectedIcon={() => <Image source={require('../../resources/images/feed.png')} />}
+                    onPress={()=>this.setState({selectedTab:'feed'})}
                 >
-                    <Text style={styles.welcome}>FEED Tab</Text>
+                    <Feed/>
                 </TabNavigator.Item>
 
                 <TabNavigator.Item
-                    selected={this.state.selectedTab == 'settings'}
-                    title="Settings"
-                    onPress={()=>this.setState({selectedTab:'settings'})}
+                    selected={this.state.selectedTab == 'search'}
+                    title="Search"
+                    onPress={()=>this.setState({selectedTab:'search'})}
                     renderIcon={() => <Image source={require('../../resources/images/feed.png')} />}
                     renderSelectedIcon={() => <Image source={require('../../resources/images/feed.png')} />}
                 >
-                    <Text style={styles.welcome}>Settings Tab</Text>
+                    <Text style={styles.welcome}>Search Tab</Text>
                 </TabNavigator.Item>
             </TabNavigator>
         );
