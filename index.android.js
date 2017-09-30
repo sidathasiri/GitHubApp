@@ -8,6 +8,8 @@ import {
 } from 'react-native';
 
 import Login from './Components/Login/login';
+import AppContainer from './Components/AppContainer/appContainer';
+
 import AuthService from './Services/AuthService';
 
 export default class githubapp extends Component {
@@ -45,7 +47,7 @@ export default class githubapp extends Component {
     if(this.state.isLoggedIn){
       return (
         <View style={styles.container}>
-           <Text style={styles.welcome}>Logged In</Text>
+           <AppContainer />
         </View>
       );
     } else{
