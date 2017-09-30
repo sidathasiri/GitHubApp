@@ -25,7 +25,7 @@ export default class Feed extends Component {
         return(
             <View style={{flex: 1, padding: 20, flexDirection: 'column', borderBottomColor: '#fff', borderBottomWidth: 10, borderRadius: 10, alignSelf: 'flex-start'}}>
                 <Text style={{fontSize: 20,color: '#333', backgroundColor: '#fff'}}>
-                    {rowData.message}
+                    {rowData.message.slice(0,1).toUpperCase() + rowData.message.slice(1)}
                 </Text>
 
                 <Text style={{fontSize: 12}}>
