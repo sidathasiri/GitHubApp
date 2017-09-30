@@ -22,9 +22,17 @@ export default class Feed extends Component {
     }
 
     renderRow(rowData){
-        return(<Text style={styles.card}>
-                {rowData.message}
-            </Text>)
+        return(
+            <View style={{flex: 1, padding: 20, flexDirection: 'column', borderBottomColor: '#fff', borderBottomWidth: 10, borderRadius: 10, alignSelf: 'flex-start'}}>
+                <Text style={{fontSize: 20,color: '#333', backgroundColor: '#fff'}}>
+                    {rowData.message}
+                </Text>
+
+                <Text style={{fontSize: 12}}>
+                    by {rowData.author.name} on {rowData.author.date}
+                </Text>
+            </View>
+        )
     }
 
     componentDidMount(){
@@ -73,6 +81,8 @@ export default class Feed extends Component {
         else
             return (
                 <View style={styles.container}>
+                    <Text style={{fontSize:30}}>Commits...</Text>
+                    <View><Text>---------------------------------------</Text></View>
                     <ListView
                     dataSource={this.state.dataSource}
                     renderRow={this.renderRow.bind(this)}
@@ -90,12 +100,6 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'flex-start'
     },
-
-    card: {
-        color: '#333',
-        backgroundColor: '#fff', 
-        alignSelf: 'center'
-    }
   });
 
 
