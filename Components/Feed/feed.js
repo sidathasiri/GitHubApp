@@ -30,6 +30,7 @@ export default class Feed extends Component {
 
     rowPress(data){
         console.log(data);
+        this.props.navigation.navigate('CommitDetails', data);
     }
 
     renderRow(rowData){
@@ -38,7 +39,7 @@ export default class Feed extends Component {
                 onPress={()=> this.rowPress(rowData)}
                 underlayColor='#ddd'>
                 <View style={{flex: 1, padding: 20, flexDirection: 'column', borderBottomColor: '#fff', borderBottomWidth: 10, borderRadius: 10, alignSelf: 'flex-start'}}>
-                    <Text style={{fontSize: 20,color: '#333', backgroundColor: '#fff'}}>
+                    <Text style={{fontSize: 20,color: '#333', }}>
                         {rowData.message.slice(0,1).toUpperCase() + rowData.message.slice(1)}
                     </Text>
 

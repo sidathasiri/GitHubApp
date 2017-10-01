@@ -11,28 +11,37 @@ import {Icon} from 'react-native-elements';
 
 import Feed from '../../Components/Feed/feed';
 import CommitDetails from '../../Components/CommitDetails/commitDetails';
+import Search from '../../Components/Search/search';
 
-// export const FeedStack = TabNavStackNavigatorigator({
-//     Feed: {
-//         screen: Feed,
-//     },
+export const FeedStack = StackNavigator({
+    Feed: {
+        screen: Feed,
+        navigationOptions: {
+            title: 'Feed',
+          }
+    },
 
-//     CommitDetails: {
-//         screen: CommitDetails,
-//     }
-// });
+    CommitDetails: {
+        screen: CommitDetails,
+        navigationOptions: ({ navigation }) => ({
+            title: `${navigation.state.params.message.slice(0,1).toUpperCase()}${navigation.state.params.message.slice(1)}`
+        }) 
+    }
+}, {
+    headerMode: 'screen', 
+    cardStyle: {backgroundColor: '#E3F2FC'}
+});
 
 export const Tabs = TabNavigator({
     Feed: {
-      screen: Feed,
+      screen: FeedStack,
       navigationOptions: {
         tabBarLabel: 'Feed',
-        
       }
       
     },
-    CommitDetails: {
-      screen: CommitDetails,
+    Search: {
+      screen: Search,
       navigationOptions: {
         tabBarLabel: 'Search',
       }
@@ -43,7 +52,7 @@ export const Tabs = TabNavigator({
       style: {backgroundColor: '#55B1E9', height: 60, padding:0, margin:0},
       showLabel: true,
       tabStyle: {margin: 0, padding: 0, height: 60},
-      indicatorStyle: {backgroundColor: 'lightgrey'}
+      indicatorStyle: {}
     },
     tabBarPosition: 'bottom',
   });
