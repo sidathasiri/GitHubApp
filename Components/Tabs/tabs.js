@@ -29,7 +29,7 @@ export const FeedStack = StackNavigator({
     }
 }, {
     headerMode: 'screen', 
-    cardStyle: {backgroundColor: '#E3F2FC'},
+    cardStyle: {backgroundColor: 'white'},
     
 });
 
