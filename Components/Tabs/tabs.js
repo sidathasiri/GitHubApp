@@ -18,7 +18,7 @@ export const FeedStack = StackNavigator({
         screen: Feed,
         navigationOptions: {
             title: 'Feed',
-          }
+        }
     },
 
     CommitDetails: {
@@ -29,7 +29,8 @@ export const FeedStack = StackNavigator({
     }
 }, {
     headerMode: 'screen', 
-    cardStyle: {backgroundColor: '#E3F2FC'}
+    cardStyle: {backgroundColor: '#E3F2FC'},
+    
 });
 
 export const Tabs = TabNavigator({
