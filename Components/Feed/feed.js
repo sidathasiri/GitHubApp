@@ -5,14 +5,21 @@ import {
     View,
     Text,
     ListView,
-    ActivityIndicator
+    ActivityIndicator,
+    TouchableHighlight,Icon
 } 
 from 'react-native';
+import {StackNavigator} from 'react-navigation';
+import CommitDetails from '../CommitDetails/commitDetails';
+
+
 
 export default class Feed extends Component {
 
+    
+
     constructor(props){
-        super(props);   
+        super(props);  
 
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
@@ -21,17 +28,25 @@ export default class Feed extends Component {
         };
     }
 
+    rowPress(data){
+        console.log(data);
+    }
+
     renderRow(rowData){
         return(
-            <View style={{flex: 1, padding: 20, flexDirection: 'column', borderBottomColor: '#fff', borderBottomWidth: 10, borderRadius: 10, alignSelf: 'flex-start'}}>
-                <Text style={{fontSize: 20,color: '#333', backgroundColor: '#fff'}}>
-                    {rowData.message.slice(0,1).toUpperCase() + rowData.message.slice(1)}
-                </Text>
+            <TouchableHighlight
+                onPress={()=> this.rowPress(rowData)}
+                underlayColor='#ddd'>
+                <View style={{flex: 1, padding: 20, flexDirection: 'column', borderBottomColor: '#fff', borderBottomWidth: 10, borderRadius: 10, alignSelf: 'flex-start'}}>
+                    <Text style={{fontSize: 20,color: '#333', backgroundColor: '#fff'}}>
+                        {rowData.message.slice(0,1).toUpperCase() + rowData.message.slice(1)}
+                    </Text>
 
-                <Text style={{fontSize: 12}}>
-                    by {rowData.author.name} on {rowData.author.date}
-                </Text>
-            </View>
+                    <Text style={{fontSize: 12}}>
+                        by {rowData.author.name} on {rowData.author.date}
+                    </Text>
+                </View>
+            </TouchableHighlight>
         )
     }
 

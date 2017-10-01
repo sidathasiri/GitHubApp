@@ -8,8 +8,12 @@ import {
     Icon
 } 
 from 'react-native';
-import TabNavigator from 'react-native-tab-navigator';
+import {StackNavigator} from 'react-navigation';
 import Feed from '../Feed/feed';
+import CommitDetails from '../CommitDetails/commitDetails';
+import {Tabs} from '../../Components/Tabs/tabs';
+
+
 
 export default class AppContainer extends Component {
 
@@ -22,29 +26,7 @@ export default class AppContainer extends Component {
 
     render() {
         return (
-            <TabNavigator>
-                <TabNavigator.Item
-                    titleStyle={{fontWeight: 'bold', fontSize: 10}}
-                    selectedTitleStyle={{marginTop: -1, marginBottom: 6}}
-                    selected={this.state.selectedTab == 'feed'}
-                    title="Feed"
-                    renderIcon={() => <Image source={require('../../resources/images/feed.png')} />}
-                    renderSelectedIcon={() => <Image source={require('../../resources/images/feed.png')} />}
-                    onPress={()=>this.setState({selectedTab:'feed'})}
-                >
-                    <Feed/>
-                </TabNavigator.Item>
-
-                <TabNavigator.Item
-                    selected={this.state.selectedTab == 'search'}
-                    title="Search"
-                    onPress={()=>this.setState({selectedTab:'search'})}
-                    renderIcon={() => <Image source={require('../../resources/images/feed.png')} />}
-                    renderSelectedIcon={() => <Image source={require('../../resources/images/feed.png')} />}
-                >
-                    <Text style={styles.welcome}>Search Tab</Text>
-                </TabNavigator.Item>
-            </TabNavigator>
+            <Tabs/>
         );
   }
 
