@@ -22,7 +22,8 @@ export default class Feed extends Component {
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
           dataSource: ds.cloneWithRows([{author: {name:'', date:''}, message: ''}]),
-          opacity: 1
+          opacity: 1,
+          repo: this.props.navigation.state.params
         };
     }
 
@@ -54,32 +55,42 @@ export default class Feed extends Component {
     }
 
     fetchFeeds(){
-        require('../../Services/AuthService').getAuthInfo((err, authInfo) => {
-            var url = 'https://api.github.com/repos/sidathasiri/GitHubApp/commits';
-            console.log('inside fetchinggggggg'+authInfo);
-            fetch(url, {
-                header: authInfo.header
-            })
-            .then((res) => res.json())
-            .then((result)=> {
-                console.log(result);
-                console.log(result[0].commit.message);
-                var i;
-                let arr=[];
-                for( i=0; i< result.length; i++){
-                    console.log(result[i].commit.message);
-                    arr.push(result[i].commit);
-                }
-                console.log(arr.length);
-                this.setState({
-                    dataSource: this.state.dataSource.cloneWithRows(arr),
-                    opacity: 0
-                });
+        var authService = require('../../Services/AuthService');
+        console.log("esssssssssssssssssssssssssss");
+        console.log(this.props.navigation.state.params.name);
+        authService.getCredintials((err, result)=>{
+            this.setState({username: result[0][1], password: result[1][1]});
 
-                console.log(this.state.dataSource);
-            })
-            
+            authService.getAuthInfo((err, authInfo) => {
+                var url = 'https://api.github.com/repos/'+this.state.username+'/'+this.props.navigation.state.params.name+'/commits';
+                console.log('inside fetchinggggggg'+authInfo);
+                fetch(url, {
+                    header: authInfo.header
+                })
+                .then((res) => res.json())
+                .then((result)=> {
+                    console.log(result);
+                    console.log(result[0].commit.message);
+                    var i;
+                    let arr=[];
+                    for( i=0; i< result.length; i++){
+                        console.log(result[i].commit.message);
+                        arr.push(result[i].commit);
+                    }
+                    console.log(arr.length);
+                    this.setState({
+                        dataSource: this.state.dataSource.cloneWithRows(arr),
+                        opacity: 0
+                    });
+    
+                    console.log(this.state.dataSource);
+                })
+                
+            });
         });
+
+
+        
     }
 
     render() {
@@ -95,7 +106,6 @@ export default class Feed extends Component {
         else
             return (
                 <View style={styles.container}>
-                    <Text style={{fontSize:30, color: 'black',fontWeight: 'bold', marginBottom: 20, marginTop: 20}}>Commits...</Text>
                     <ListView
                     dataSource={this.state.dataSource}
                     renderRow={this.renderRow.bind(this)}

@@ -29,7 +29,7 @@ export default class Repos extends Component {
 
     rowPress(data){
         console.log(data);
-        this.props.navigation.navigate('CommitDetails', data);
+        this.props.navigation.navigate('Feed', data);
     }
 
     renderRow(rowData){
@@ -97,7 +97,6 @@ export default class Repos extends Component {
         else
             return (
                 <View style={styles.container}>
-                    <Text style={{fontSize:30, color: 'black',fontWeight: 'bold', marginBottom: 20, marginTop: 20}}>Commits...</Text>
                     <ListView
                     dataSource={this.state.dataSource}
                     renderRow={this.renderRow.bind(this)}

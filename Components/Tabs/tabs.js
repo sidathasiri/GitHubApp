@@ -24,6 +24,13 @@ export const FeedStack = StackNavigator({
         }
     },
 
+    Feed: {
+        screen: Feed,
+        navigationOptions: ({ navigation }) => ({
+            title: navigation.state.params.name
+        }) 
+    },
+
     CommitDetails: {
         screen: CommitDetails,
         navigationOptions: ({ navigation }) => ({
