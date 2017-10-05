@@ -37,11 +37,11 @@ export default class SearchResults extends Component {
 
     renderRow(rowData){
         return(
-            <View style={{flex: 1, padding: 20, paddingTop: 20, paddingBottom: 20, flexDirection: 'column', borderColor: '#D7D7D7', borderBottomWidth: 1, borderTopWidth: 1, alignSelf: 'flex-start'}}>
+            <View style={{flex: 1, padding: 20, paddingTop: 20, alignSelf: 'stretch', paddingBottom: 20, flexDirection: 'column', borderColor: '#D7D7D7', borderBottomWidth: 1, borderTopWidth: 1, }}>
                 
-                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, marginBottom: 20}}>
+                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start', marginTop: 20, marginBottom: 20}}>
                     <Image style={styles.repoCellIcon} source={{uri: rowData.owner.avatar_url}} />
-                    <Text style={{fontSize: 20,color: '#333', }}>
+                    <Text style={{fontSize: 20,color: '#333', alignSelf: 'flex-start'}}>
                         {rowData.full_name}
                     </Text>
                 </View>
@@ -109,9 +109,6 @@ const styles = StyleSheet.create({
         height: 50,
         marginRight: 10
     },
-    repoCellLabel: {
-        textAlign: 'center',   
-    }
   });
 
 

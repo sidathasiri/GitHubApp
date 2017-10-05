@@ -38,7 +38,7 @@ export default class Feed extends Component {
             <TouchableHighlight
                 onPress={()=> this.rowPress(rowData)}
                 underlayColor='#ddd'>
-                <View style={{flex: 1, padding: 20, paddingTop: 20, paddingBottom: 20, flexDirection: 'column', borderColor: '#D7D7D7', borderBottomWidth: 1, borderTopWidth: 1, alignSelf: 'flex-start'}}>
+                <View style={{flex: 1, padding: 20, paddingTop: 20, paddingBottom: 20, flexDirection: 'column', borderColor: '#D7D7D7', borderBottomWidth: 1, borderTopWidth: 1, alignSelf: 'stretch'}}>
                     <Text style={{fontSize: 20,color: '#333', }}>
                         {rowData.message.slice(0,1).toUpperCase() + rowData.message.slice(1)}
                     </Text>
@@ -97,7 +97,7 @@ export default class Feed extends Component {
         else
             return (
                 <View style={styles.container}>
-                    <Text style={{fontSize:30}}>Commits...</Text>
+                    <Text style={{fontSize:30, color: 'black',fontWeight: 'bold', marginBottom: 20, marginTop: 20}}>Commits...</Text>
                     <ListView
                     dataSource={this.state.dataSource}
                     renderRow={this.renderRow.bind(this)}
