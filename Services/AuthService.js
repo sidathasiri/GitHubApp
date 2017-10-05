@@ -6,7 +6,6 @@ const authKey = "auth";
 const userKey = "user";
 
 class AuthService{
-
     getAuthInfo(callback){
         AsyncStorage.multiGet([authKey, userKey], (err, result)=>{
             if(err)
@@ -56,9 +55,18 @@ class AuthService{
         })
     }
 
+    getCredintials(callback){
+        AsyncStorage.multiGet(["username", "password"], (err, result)=>{
+            if(err)
+                return callback(err);
+            return callback(null, result);
+        })
+    }
+
     login(credintials, callback){
         var encorder  = new buffer.Buffer(credintials.username+":"+credintials.password);
         var encordedData = encorder.toString('base64');
+
         fetch('https://api.github.com/user', {
             headers: {
                 'Authorization': 'Basic '+ encordedData
@@ -74,10 +82,13 @@ class AuthService{
         })
         .then((res) => {return res.json()})
         .then(result => {
-            console.log("result"+result);
+            console.log("saving credentialssssss");
+            console.log(credintials.username+"   "+credintials.password);
             AsyncStorage.multiSet([
                 [authKey, encordedData],
-                [userKey, JSON.stringify(result)]
+                [userKey, JSON.stringify(result)],
+                ["username", credintials.username],
+                ["password", credintials.password]
             ], (err) => {
                 if(err)
                     throw err;

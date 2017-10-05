@@ -14,12 +14,13 @@ import CommitDetails from '../../Components/CommitDetails/commitDetails';
 import Search from '../../Components/Search/search';
 import SearchResults from '../SearchResults/searchResults';
 import Settings from '../Settings/settings';
+import Repos from '../Repos/repos';
 
 export const FeedStack = StackNavigator({
-    Feed: {
-        screen: Feed,
+    Repos: {
+        screen: Repos,
         navigationOptions: {
-            title: 'Feed',
+            title: 'Repos',
         }
     },
 
