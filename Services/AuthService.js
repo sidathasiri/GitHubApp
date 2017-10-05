@@ -29,6 +29,21 @@ class AuthService{
         })
     }
 
+    saveLoginData(credintials){
+        var encorder  = new buffer.Buffer(credintials.username+":"+credintials.password);
+        var encordedData = encorder.toString('base64');
+
+        AsyncStorage.multiSet([
+            [authKey, encordedData],
+            [userKey, JSON.stringify(result)]
+        ], (err) => {
+            if(err)
+                return "error";
+            else
+                return "success"
+        });
+    }
+
     clearLoginData(){
         AsyncStorage.multiRemove([authKey, userKey], (err)=>{
             if(err){

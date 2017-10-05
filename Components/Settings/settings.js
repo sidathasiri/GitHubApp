@@ -16,7 +16,8 @@ export default class Settings extends Component {
     constructor(props){
         super(props);   
         this.state = {
-            login: true
+            login: true,
+            error: true
         }
     }
 
@@ -26,12 +27,36 @@ export default class Settings extends Component {
         this.setState({login: false});
     }
 
+    saveLoginData(){
+        var authService = require('../../Services/AuthService');
+        authService.login({username: this.state.username, password: this.state.password}, (result)=>{
+            console.log(result);
+            if(result.badCredintials || result.unknownError)
+                this.setState(result)
+            else
+                this.setState({error: false});
+
+        });
+    }
+
     onLogin(){
         console.log("You can login!!!!");
         this.setState({isLoggedIn: true});
       }
 
     render() {
+        var errCtrl = <View />;
+        if(this.state.badCredintials){
+            errCtrl = <Text style={styles.error}>Wrong username or password!</Text>
+        }
+
+        if(this.state.unknownError){
+            errCtrl = <Text style={styles.error}>Unexpected error occured!</Text>
+        }
+
+        if(!this.state.error){
+            errCtrl = <Text style={{color: '#77F44C'}}>Update Succesful!</Text>
+        }
         return(
             <View style = {styles.container}>
                     <TouchableHighlight style={styles.logoutBtn} onPress={this.logout.bind(this)}><Text style={styles.btnText}>Logout</Text></TouchableHighlight>
@@ -53,18 +78,15 @@ export default class Settings extends Component {
                     onChangeText={(text)=>this.setState({password: text})}
                     />
         
-                    <TouchableHighlight style={styles.btn} onPress={this.savePressed.bind(this)}>
+                    <TouchableHighlight style={styles.btn} onPress={this.saveLoginData.bind(this)}>
                         <Text style={styles.btnText}>Save</Text>
                     </TouchableHighlight>
-        
-                </View>
-                );
-        
-  }
 
-  savePressed(){
-      var loginService = require('../../Services/AuthService');
-    
+                    {errCtrl}
+        
+            </View>
+        );
+        
   }
 
 }
