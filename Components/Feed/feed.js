@@ -12,8 +12,6 @@ from 'react-native';
 import {StackNavigator} from 'react-navigation';
 import CommitDetails from '../CommitDetails/commitDetails';
 
-
-
 export default class Feed extends Component {
 
     

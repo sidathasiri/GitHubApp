@@ -29,6 +29,18 @@ class AuthService{
         })
     }
 
+    clearLoginData(){
+        AsyncStorage.multiRemove([authKey, userKey], (err)=>{
+            if(err){
+                console.log(err);
+                return err;
+            }
+            console.log("success");
+            return "success";
+
+        })
+    }
+
     login(credintials, callback){
         var encorder  = new buffer.Buffer(credintials.username+":"+credintials.password);
         var encordedData = encorder.toString('base64');

@@ -13,6 +13,7 @@ import Feed from '../../Components/Feed/feed';
 import CommitDetails from '../../Components/CommitDetails/commitDetails';
 import Search from '../../Components/Search/search';
 import SearchResults from '../SearchResults/searchResults';
+import Settings from '../Settings/settings';
 
 export const FeedStack = StackNavigator({
     Feed: {
@@ -70,6 +71,12 @@ export const Tabs = TabNavigator({
         tabBarLabel: 'Search',
       }
     },
+    Settings: {
+        screen: Settings,
+        navigationOptions: {
+          tabBarLabel: 'Settings',
+        }
+      },
   }, {
     tabBarOptions: {
       showIcon: false,
