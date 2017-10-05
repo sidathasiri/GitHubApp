@@ -12,6 +12,7 @@ import {Icon} from 'react-native-elements';
 import Feed from '../../Components/Feed/feed';
 import CommitDetails from '../../Components/CommitDetails/commitDetails';
 import Search from '../../Components/Search/search';
+import SearchResults from '../SearchResults/searchResults';
 
 export const FeedStack = StackNavigator({
     Feed: {
@@ -33,6 +34,28 @@ export const FeedStack = StackNavigator({
     
 });
 
+export const SearchStack = StackNavigator({
+    Search: {
+        screen: Search,
+        navigationOptions: {
+            title: 'Search',
+        }
+    },
+
+    SearchResults: {
+        screen: SearchResults,
+        navigationOptions: {
+            title: 'Search Results',
+        }
+    },
+
+    
+}, {
+    headerMode: 'screen', 
+    cardStyle: {backgroundColor: 'white'},
+    
+});
+
 export const Tabs = TabNavigator({
     Feed: {
       screen: FeedStack,
@@ -42,7 +65,7 @@ export const Tabs = TabNavigator({
       
     },
     Search: {
-      screen: Search,
+      screen: SearchStack,
       navigationOptions: {
         tabBarLabel: 'Search',
       }
